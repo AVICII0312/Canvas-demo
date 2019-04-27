@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>画板</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <canvas id='xxx' class="actions"></canvas>
+    <div id=actions class="actions">
+        <button id='eraser'>橡皮擦</button>
+        <button id='brush'>画笔</button>
+    </div>
+    <script>
+        //渲染上下文
+        var palette = document.getElementById('xxx');
+        var context = palette.getContext('2d');
+        autocanvasSize(palette)
+        listenTomouse(palette)
+
+        var eraserEnabled = false
+        eraser.onclick = function() {
+            eraserEnabled = true
+            actions.className = 'actions x'
+        }
+        brush.onclick = function() {
+            eraserEnabled = false
+            actions.className = 'actions'
+        }
+
+        //获取页面宽高
+        function autocanvasSize(canvas) {
+            setCanvasSize()
+                //监听用户窗口
+            window.onresize = function() {
+                setCanvasSize()
+            }
+
+            function setCanvasSize() {
+                var pageWidth = document.documentElement.clientWidth
+                var pageHeight = document.documentElement.clientHeight
+                canvas.width = pageWidth
+                canvas.height = pageHeight
+            }
+        }
+
+        //监听鼠标事件
+        var usering = false
+        var lastPoint = {
+            x: undefined,
+            y: undefined
+        }
+
+        function listenTomouse(canvas) {
+            palette.onmousedown = function(xx) { //点击鼠标事件
+                var x = xx.clientX
+                var y = xx.clientY
+                usering = true
+                if (eraserEnabled) {
+                    context.clearRect(x - 6, y - 6, 12, 12)
+                } else {
+                    lastPoint = {
+                        x: x,
+                        y: y
+                    }
+                }
+            }
+
+            palette.onmousemove = function(xxx) { //移动鼠标事件
+                var x = xxx.clientX
+                var y = xxx.clientY
+                if (!usering) {
+                    return
+                }
+                if (eraserEnabled) {
+                    context.clearRect(x - 6, y - 6, 12, 12)
+                } else {
+                    var newPoint = {
+                        "x": x,
+                        "y": y
+                    }
+                    drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+                    lastPoint = newPoint
+                }
+            }
+            palette.onmouseup = function() { //松开鼠标事件
+                context.closePath();
+                usering = false
+            }
+        }
+        //画笔属性
+        function drawLine(x1, y1, x2, y2) {
+            context.beginPath()
+            context.strokeStyle = 'yellow'
+            context.lineWidth = 5
+            context.moveTo(x1, y1) //起点
+            context.lineTo(x2, y2); //终点
+            context.stroke()
+            context.closePath()
+        }
+        //橡皮擦属性
+        function drawCircle(x, y, radius) {
+            context.beginPath()
+            context.fillStyle = 'red'
+            context.arc(x, y, radius, 0, Math.PI * 2);
+            context.fill()
+        }
+    </script>
+</body>
+
+</html>
