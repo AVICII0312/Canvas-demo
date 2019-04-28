@@ -1,26 +1,122 @@
-body {
-    margin: 0px;
-}
-
-#xxx {
-    background: red;
-    display: block;
-}
-
-.actions {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-}
-
-.actions>#brush {
-    display: none;
-}
-
-.actions.x>#brush {
-    display: inline-block;
-}
-
-.actions.x>#eraser {
-    display: none
-}
+    body {
+        margin: 0px;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+    
+    .icon {
+        width: 30px;
+        height: 30px;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+        display: inline-block;
+        padding-top: 20px;
+        padding-left: 20px;
+        color: #666666;
+    }
+    
+    ul,
+    ol {
+        list-style: none;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    #xxx {
+        display: block;
+    }
+    
+    .actions {
+        position: fixed;
+    }
+    
+    .actions>#brush {
+        color: black;
+        transform: scale(1.2, 1.2);
+    }
+    
+    .actions.x>#brush {
+        color: #666666;
+        transform: scale(1.0, 1.0);
+    }
+    
+    .actions.x>#eraser {
+        color: black;
+        transform: scale(1.2, 1.2);
+    }
+    
+    #paletteColor {
+        position: fixed;
+        top: 20px;
+        left: 210px;
+    }
+    
+    #paletteColor>ol>li {
+        float: left;
+        margin-right: 10px;
+        border-radius: 14px;
+        box-shadow: yellow 0px 0px 3px 1px;
+    }
+    
+    #paletteColor>ol>#blue {
+        width: 26px;
+        height: 26px;
+        background: blue;
+    }
+    
+    #paletteColor>ol>#green {
+        width: 26px;
+        height: 26px;
+        background: green;
+    }
+    
+    #paletteColor>ol>#yellow {
+        width: 26px;
+        height: 26px;
+        background: yellow;
+    }
+    
+    #brushwork {
+        position: fixed;
+        top: 70px;
+        left: 20px;
+        text-align: center;
+    }
+    
+    #brushwork>.thin {
+        width: 10px;
+        height: 10px;
+        background: black;
+        border-radius: 10px;
+        margin-bottom: 5px;
+    }
+    
+    #brushwork>.wide {
+        width: 15px;
+        height: 15px;
+        background: #666666;
+        border-radius: 10px;
+    }
+    
+    #brushwork.x>.thin {
+        background: #666666
+    }
+    
+    #brushwork.x>.wide {
+        background: black;
+    }
+    
+    #canvasdownload {
+        position: fixed;
+        left: 140px;
+    }
+    
+    #canvasclear {
+        position: fixed;
+        left: 100px
+    }
